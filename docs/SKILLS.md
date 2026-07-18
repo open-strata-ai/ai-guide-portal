@@ -14,7 +14,7 @@
 
 ## Rule 1: State Management — Assembly Context
 
-### 1.1 Layered State Architecture (§15.6.3)
+### 1.1 Layered State Architecture (§15.5.3)
 
 Follow DDD-inspired four-layer structure for frontend state:
 
@@ -79,7 +79,7 @@ flowchart LR
 
 ### 2.2 Dependency Inversion Rule
 
-The frontend domain layer only depends on `GuidePort` (interface); `infrastructure/GuideApiClient` implements it. The backend internally follows the same pattern (§15.6.2 port-adapter).
+The frontend domain layer only depends on `GuidePort` (interface); `infrastructure/GuideApiClient` implements it. The backend internally follows the same pattern (§15.5.2 port-adapter).
 
 ```typescript
 // domain/port/GuidePort.ts — Frontend domain port
@@ -117,7 +117,7 @@ interface GuidePort {
 
 | Rule | Description |
 | --- | --- |
-| **No direct engine calls** | Frontend must NEVER call `ai-dependency-resolver` or `ai-provisioning-engine` directly. All requests go through the Java backend (anti-corruption layer, §15.6.2). |
+| **No direct engine calls** | Frontend must NEVER call `ai-dependency-resolver` or `ai-provisioning-engine` directly. All requests go through the Java backend (anti-corruption layer, §15.5.2). |
 | **Upgrade pre-check** | Backend runs dependency validation + resource quota check before `apply`. Frontend should handle `409` by displaying missing dependencies. |
 | **Trace propagation** | All API calls include `trace-id` header propagated through the full chain: frontend → Java backend → Go engines → ArgoCD. |
 
@@ -138,7 +138,7 @@ interface GuidePort {
 ### 4.2 Controller Definition (Java)
 
 ```java
-// interface_/GuidePortalController.java — Inbound adapter (§15.6.2 ①)
+// interface_/GuidePortalController.java — Inbound adapter (§15.5.2 ①)
 @RestController
 @RequestMapping("/api/v1")
 public class GuidePortalController {
@@ -233,10 +233,10 @@ interface ComponentStatus {
 
 | This Document Section | Architecture Document § |
 | --- | --- |
-| Rule 1 (State Management) | §15.6.3 (TS Packages), §12.1 (Manifest) |
-| Rule 2 (Data Flow) | §15.6.2 (DDD), §15.6.3 (TS Packages) |
+| Rule 1 (State Management) | §15.5.3 (TS Packages), §12.1 (Manifest) |
+| Rule 2 (Data Flow) | §15.5.2 (DDD), §15.5.3 (TS Packages) |
 | Rule 3 (API Integration) | §4.7.3 (Keycloak), §14.1 (Engine Integration), §13.5 (Pre-check) |
-| Rule 4 (REST Contract) | §15.6.1 (Java Backend), §15.6.2 (Port-Adapter) |
+| Rule 4 (REST Contract) | §15.5.1 (Java Backend), §15.5.2 (Port-Adapter) |
 | Rule 5 (Tenant Context) | §8 (Multi-tenancy), §14.5 (Closed Loop) |
 
 ---
