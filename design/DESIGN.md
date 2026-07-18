@@ -10,7 +10,7 @@
 | **Language · Framework** | TypeScript · React 18 + Vite + Ant Design (antd, front-end) / **Java · Spring Boot 3.x (portal back-end orchestration) ** |
 | **domain** | assembly (capability assembly/dependency-aware automatic upgrade, corresponding to §13) |
 | **optional** | false (core, installed by default with all profiles, see `openstrata-meta/profiles/*.yaml`) |
-| **Platform version** | v1.4.0 |
+| **Platform version** | v1.0.0 |
 | **Document Status** | Draft (draft) |
 | **Responsible Person** | OpenStrata Architecture Group |
 | **Affiliated links** | This repository [arch/ARCH.md](./../arch/ARCH.md) · [skills/SKILLS.md](./../skills/SKILLS.md) · [specs/SPECS.md](./../specs/SPECS.md); Architecture document §13 (Bootstrap Portal), §12 (PlatformManifest), §10.6 (Component Registry), §15.5 (DDD/Java) |
@@ -205,7 +205,7 @@ The bootstrap portal is assembled "within boundaries", so the multitenant UI foc
 - **Containerization**: front-end `nginx:alpine`; back-end independent image; both injected through `env` (`VITE_GUIDE_API_BASE` / `GUIDE_API_*`, external configuration, §15.5 cloud native).
 - **K8s**: `helm/` (front-end deployment + back-end deployment + respective configmap/ingress), stateless, horizontally scalable; the back-end has PostgreSQL dependency (Class A §8).
 - **CI/CD (each repository is independent, §15.6.2)**: `.github/` = front-end `lint→tsc→single test→build→Trivy` + back-end `mvn test→package→Trivy→push`; `ai-ui-kit` nailed version (from `bom.yaml`).
-- **Assembled with meta repository**: The guide portal/assembly engine is nailed to `ai-guide-portal@v1.4.0` according to `repos.yaml` (including front and back ends); all profiles include this repository (see `openstrata-meta/profiles/*.yaml`).
+- **Assembled with meta repository**: The guide portal/assembly engine is nailed to `ai-guide-portal@v1.0.0` according to `repos.yaml` (including front and back ends); all profiles include this repository (see `openstrata-meta/profiles/*.yaml`).
 
 ---
 

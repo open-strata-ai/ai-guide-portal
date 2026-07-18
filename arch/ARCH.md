@@ -10,7 +10,7 @@
 | **language / framework** | TypeScript · React 18 + Vite + Ant Design (frontend) / Java · Spring Boot 3.x (backend orchestration) |
 | **domain** | assembly (capability assembly / dependency-aware auto-upgrade, §13) |
 | **optional** | false (core, installed by default in all profiles) |
-| **platform version** | v1.4.0 |
+| **platform version** | v1.0.0 |
 | **doc status** | draft |
 
 ---

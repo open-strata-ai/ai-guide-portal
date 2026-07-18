@@ -9,7 +9,7 @@
 | **repo** | `ai-guide-portal` |
 | **frontend** | TypeScript · React 18 + Vite + Ant Design |
 | **backend** | Java · Spring Boot 3.x (portal orchestration) |
-| **platform version** | v1.4.0 |
+| **platform version** | v1.0.0 |
 | **doc status** | draft |
 
 ---
@@ -155,7 +155,7 @@
 | `advanced` | Yes | Default installation |
 | `full` | Yes | Default installation |
 
-> Guide portal is pinned in all profiles via `openstrata-meta/profiles/*.yaml` with version from `repos.yaml`: `ai-guide-portal@v1.4.0`.
+> Guide portal is pinned in all profiles via `openstrata-meta/profiles/*.yaml` with version from `repos.yaml`: `ai-guide-portal@v1.0.0`.
 
 ---
 

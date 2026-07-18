@@ -5,7 +5,7 @@
 - **Language**: TypeScript (Primary framework: React 18 + Vite + Ant Design (front-end) / Spring Boot 3.x (portal back-end))
 - **domain**: assembly
 - **OPTIONAL**: core
-- **Meta repository reference**: `openstrata-meta/repos.yaml` (tag `v1.4.0`) · BOM see `openstrata-meta/bom.yaml`
+- **Meta repository reference**: `openstrata-meta/repos.yaml` (tag `v1.0.0`) · BOM see `openstrata-meta/bom.yaml`
 
 ## Repository unified structure (§15.6.2)
 
