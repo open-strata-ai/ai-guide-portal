@@ -130,7 +130,7 @@
 | Frontend Deployment | 2 | `nginx:alpine`, ClusterIP:80, env: `VITE_GUIDE_API_BASE` / `VITE_KEYCLOAK_*` |
 | Backend Deployment | 2 | `eclipse-temurin:21-jre-alpine`, ClusterIP:8080, env: `GUIDE_DB_URL` / `GUIDE_RESOLVER_URL` / `GUIDE_PROVISIONER_URL` |
 | ConfigMap | 1 per deployment | Environment-specific config |
-| Ingress | 1 | Route `guide.openstrata.io` → frontend |
+| Ingress | 1 | Route `guide.openstrata.cc` → frontend |
 | Service | 2 | Frontend + Backend ClusterIP |
 
 ### 2.5 CI/CD Pipeline

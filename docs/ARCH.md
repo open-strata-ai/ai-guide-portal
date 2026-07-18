@@ -182,7 +182,7 @@ The domain layer (`domain/`) defines only port interfaces following Dependency I
 
 ```java
 // domain/port —— Domain layer ports (no concrete dependency)
-package com.openstrata.guide.domain.port;
+package cc.openstrata.guide.domain.port;
 
 /**
  * Dependency resolution port: resolve transitive dependency graph
@@ -230,7 +230,7 @@ public interface AuthPort {
 
 ```java
 // infrastructure/adapter —— Infrastructure layer adapters (ACL)
-package com.openstrata.guide.infrastructure.adapter;
+package cc.openstrata.guide.infrastructure.adapter;
 
 /**
  * Calls ai-dependency-resolver (Go) via HTTP/gRPC,
@@ -334,7 +334,7 @@ flowchart TD
 ### Package Structure (DDD Four-Layer, §15.5.2)
 
 ```
-com.openstrata.guide/
+cc.openstrata.guide/
 ├── interface_/          # ① Inbound adapters: REST controllers, DTOs
 │   └── GuidePortalController.java
 ├── application/         # ② Application layer: use case orchestration
