@@ -13,7 +13,7 @@
 | **Platform version** | v1.0.0 |
 | **Document Status** | Draft (draft) |
 | **Responsible Person** | OpenStrata Architecture Group |
-| **Affiliated links** | This repository [arch/ARCH.md](./../arch/ARCH.md) · [skills/SKILLS.md](./../skills/SKILLS.md) · [specs/SPECS.md](./../specs/SPECS.md); Architecture document §13 (Bootstrap Portal), §12 (PlatformManifest), §10.6 (Component Registry), §15.5 (DDD/Java) |
+| **Affiliated links** | This repository [docs/ARCH.md](./ARCH.md) · [docs/SKILLS.md](./SKILLS.md) · [docs/SPECS.md](./SPECS.md); Architecture document §13 (Bootstrap Portal), §12 (PlatformManifest), §10.6 (Component Registry), §15.5 (DDD/Java) |
 
 ---
 
