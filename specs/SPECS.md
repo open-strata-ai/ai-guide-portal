@@ -56,10 +56,10 @@
 | --- | --- |
 | **UI Components** | `MermaidRenderer` (dependency graph), `DiffView` (new/reuse/drop table) |
 | **Data** | `{graph, add, reuse, drop, downtime, resourceImpact}` from backend |
-| **Display** | Dependency graph visualization + component delta table (新增 N / 复用 M / 下线 K) |
+| **Display** | Dependency graph visualization + component delta table (new N / reused M / offline K) |
 | **Resource Preview** | CPU / Token / QPS / Vector count delta from pre-check |
 | **User Actions** | Confirm → navigate to Apply; Back → return to Wizard |
-| **Error State (409)** | Highlight missing dependencies with "一键补全" (fill all missing) button |
+| **Error State (409)** | Highlight missing dependencies with "One-click completion" (fill all missing) button |
 
 #### Apply Page (`/apply`)
 
@@ -169,7 +169,7 @@ Frontend (TypeScript) → Java Backend (Spring Boot 3.x) → Go Engines
 ```
 
 - Frontend calls only the Java backend REST API, never Go engines directly.
-- Java backend acts as anti-corruption layer (§15.6.2), translating external Go engine DTOs to internal domain objects.
+- Java backend acts as anti-corruption layer (§15.5.2), translating external Go engine DTOs to internal domain objects.
 - All requests include `X-Tenant-Id` header for tenant isolation.
 
 ### 3.2 Endpoint Specifications
@@ -311,8 +311,8 @@ All tables are tenant-scoped via `tenant_id` column with RLS enforcement.
 | This Document Section | Architecture Document § |
 | --- | --- |
 | §1 Feature Modules & Routing | §13.1 (Portal Modules), §13.2 (Business Language Mapping) |
-| §2 Build & Deployment | §15.6.1 (TS+Java Framework), §15.7.2 (Per-repo CI), §12.2 (Profile) |
-| §3 Backend API Integration | §15.6.1 (Java Backend), §4.7.3 (Keycloak), §14.1 (Engines) |
+| §2 Build & Deployment | §15.5.1 (TS+Java Framework), §15.6.2 (Per-repo CI), §12.2 (Profile) |
+| §3 Backend API Integration | §15.5.1 (Java Backend), §4.7.3 (Keycloak), §14.1 (Engines) |
 | §4 Data Model & Persistence (DDL) | §12.1 (Manifest), §8.2 (DB Isolation), §13.5 (Audit) |
 
 ---

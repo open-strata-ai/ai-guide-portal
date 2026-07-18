@@ -1,6 +1,6 @@
 # ai-guide-portal · Architecture (ARCH)
 
-> Assembly domain core repository. Frontend: TypeScript · React 18 + Vite + Ant Design. Backend: Java · Spring Boot 3.x (portal orchestration logic). Maps to architecture document §13 (Guide Portal & Dependency-Aware Auto-Upgrade) and §15.6.1 (Java backend).
+> Assembly domain core repository. Frontend: TypeScript · React 18 + Vite + Ant Design. Backend: Java · Spring Boot 3.x (portal orchestration logic). Maps to architecture document §13 (Guide Portal & Dependency-Aware Auto-Upgrade) and §15.5.1 (Java backend).
 
 ## Meta
 
@@ -266,7 +266,7 @@ public class JpaManifestRepository implements ManifestRepositoryPort {
 
 /**
  * Reads capability catalog from metadata repo
- * dependencies/external-oss.md at startup (§15.7.2)
+ * dependencies/external-oss.md at startup (§15.6.2)
  */
 @Component
 public class MetaComponentRegistryAdapter implements ComponentRegistryPort {
@@ -328,10 +328,10 @@ flowchart TD
 | `DependencyResolverPort` | `DependencyResolverAdapter` | `ai-dependency-resolver` | HTTP REST / gRPC | §10.6 depends_on graph |
 | `ProvisioningPort` | `ProvisioningAdapter` | `ai-provisioning-engine` | HTTP REST / gRPC | §14.1 plan → apply |
 | `ManifestRepositoryPort` | `JpaManifestRepository` | PostgreSQL | JDBC / JPA | §8.2 tenant isolation |
-| `ComponentRegistryPort` | `MetaComponentRegistryAdapter` | OpenStrata meta repo | Git / file read | §15.7.2 catalog source |
+| `ComponentRegistryPort` | `MetaComponentRegistryAdapter` | OpenStrata meta repo | Git / file read | §15.6.2 catalog source |
 | `AuthPort` | `KeycloakAuthAdapter` | Keycloak | OpenID Connect | §4.7.3 tenant/role ctx |
 
-### Package Structure (DDD Four-Layer, §15.6.2)
+### Package Structure (DDD Four-Layer, §15.5.2)
 
 ```
 com.openstrata.guide/
@@ -358,7 +358,7 @@ com.openstrata.guide/
 | §1 Product Positioning / Personas | §13 (Guide Portal), §13.4 (Quickstart) |
 | §2 Feature Modules / Routing | §13.1 (Portal Modules), §13.2 (Business Language Mapping) |
 | §4 Key User Flows | §13.3 (Dependency-Aware Auto-Upgrade), §13.4 (Quickstart), §13.5 (Rollback) |
-| A.6 SPI Ports & Adapters | §15.6.2 (Port-Adapter), §10.6 (Component Registry), §12.1 (Manifest) |
+| A.6 SPI Ports & Adapters | §15.5.2 (Port-Adapter), §10.6 (Component Registry), §12.1 (Manifest) |
 
 ---
 
