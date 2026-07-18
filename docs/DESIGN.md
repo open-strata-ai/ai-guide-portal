@@ -274,7 +274,7 @@ The domain layer (`domain/`) only defines the port interface and relies on inver
 
 ```java
 //domain/port - Domain layer port (does not depend on specific implementation)
-package com.openstrata.guide.domain.port;
+package cc.openstrata.guide.domain.port;
 
 /** Dependency resolution port：Parse the transitive dependency graph of selected capabilities（§13.3） */
 public interface DependencyResolverPort {
@@ -306,7 +306,7 @@ public interface AuthPort {
 
 ```java
 //infrastructure/adapter - infrastructure layer adapter (anti-corrosion layer ACL)
-package com.openstrata.guide.infrastructure.adapter;
+package cc.openstrata.guide.infrastructure.adapter;
 
 /** through HTTP/gRPC call ai-dependency-resolver（Go），Convert external response to internal DependencyGraph */
 @Component
