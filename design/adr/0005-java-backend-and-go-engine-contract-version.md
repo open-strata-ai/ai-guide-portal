@@ -1,6 +1,6 @@
 # ADR-0005: Contract version between Java backend and Go engine
 
-- **Status**: Pending (Open)
+- **Status**: Accepted — see R-004 in `openstrata-meta/contracts/adr-resolutions.md`
 - **Date**: 2026-07-17
 - **Suggested by**: OpenStrata Architecture Group
 - **Repository**: ai-guide-portal
@@ -30,7 +30,7 @@ This ADR solidifies the "contract version between Java backend and Go engine" in
 - Alignment confirmation with `ai-dependency-resolver`: clarify responsibility boundaries/interface contracts/data flow direction to avoid double writing or semantic drift.
 - Alignment confirmation with `ai-provisioning-engine`: clarify responsibility boundaries/interface contracts/data flow direction to avoid double writing or semantic drift.
 - Associated architecture documents §16.1 (as a basis for decision-making and a source of consistency verification).
-- Solidify the decision before the review at the corresponding stage, and write the final conclusion back into this ADR (the status is changed from "Pending" to "Adopted").
+- **Resolution (R-004)**: Accepted — single SemVer for the Java-backend ↔ Go-engine contract, pinned in `bom.yaml` `interface_versions`; `ai-guide-portal`, `ai-dependency-resolver`, and `ai-provisioning-engine` MUST align to it. See `openstrata-meta/contracts/adr-resolutions.md`.
 
 ## Traceback
 
