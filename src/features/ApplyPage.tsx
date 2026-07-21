@@ -13,10 +13,12 @@ export function ApplyPage() {
   const planId = plan?.id ?? 'plan-' + Date.now();
 
   async function apply() {
-    setApplyStatus('validating');
+    setApplyStatus('applying');
     try {
       const res = await guideApi.apply(planId);
-      setApplyStatus(res.status === 'APPLIED' ? 'applying' : 'ready');
+      // Backend returns APPLIED on a successful apply; reflect that as the
+      // terminal "ready" state so the user sees a real result (RC-8).
+      setApplyStatus(res.status === 'APPLIED' ? 'ready' : 'failed');
     } catch {
       setApplyStatus('failed');
     }
