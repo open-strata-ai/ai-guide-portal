@@ -7,14 +7,16 @@ import { guideApi } from '../infrastructure/guideApiClient';
 /** One-click execution (DESIGN §2 / §13.3 / §13.5). */
 export function ApplyPage() {
   const { plan, applyStatus, setApplyStatus } = useAssemblyStore();
-  const [planId, setPlanId] = useState('plan-' + Date.now());
+  // Use the real plan id returned by the preview step so the backend can find
+  // and apply the persisted plan (fall back to a synthetic id only if the user
+  // lands on /apply directly without previewing first).
+  const planId = plan?.id ?? 'plan-' + Date.now();
 
   async function apply() {
     setApplyStatus('validating');
     try {
       const res = await guideApi.apply(planId);
-      setPlanId(res.id);
-      setApplyStatus(res.status === 'accepted' ? 'applying' : 'ready');
+      setApplyStatus(res.status === 'APPLIED' ? 'applying' : 'ready');
     } catch {
       setApplyStatus('failed');
     }

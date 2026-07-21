@@ -11,7 +11,42 @@ import type {
  * Assembly wizard state (DESIGN §3.1). The single "wizard state" of this
  * portal: profile, user selections, expanded dependency graph, plan, apply
  * status, and the current tenant manifest snapshot.
+ *
+ * Wizard inputs are persisted to localStorage so a page refresh keeps what the
+ * user selected (DESIGN §3.1 — the wizard is a real, resumable authoring
+ * session, not an in-memory throwaway). The heavy lifting (preview / apply /
+ * status / rollback) still goes through the real GuidePort backend.
  */
+const PERSIST_KEY = 'openstrata.guide.assembly';
+
+interface PersistedShape {
+  profile: Profile;
+  selections: CapabilityId[];
+}
+
+function loadPersisted(): Partial<PersistedShape> {
+  if (typeof localStorage === 'undefined') return {};
+  try {
+    const raw = localStorage.getItem(PERSIST_KEY);
+    if (!raw) return {};
+    return JSON.parse(raw) as PersistedShape;
+  } catch {
+    return {};
+  }
+}
+
+function persist(state: AssemblyState): void {
+  if (typeof localStorage === 'undefined') return;
+  const data: PersistedShape = { profile: state.profile, selections: state.selections };
+  try {
+    localStorage.setItem(PERSIST_KEY, JSON.stringify(data));
+  } catch {
+    // ignore quota / serialization errors — persistence is best-effort
+  }
+}
+
+const initial = loadPersisted();
+
 interface AssemblyState {
   profile: Profile;
   selections: CapabilityId[];
@@ -28,29 +63,46 @@ interface AssemblyState {
   reset: () => void;
 }
 
-export const useAssemblyStore = create<AssemblyState>((set) => ({
-  profile: 'starter',
-  selections: [],
+export const useAssemblyStore = create<AssemblyState>((set, get) => ({
+  profile: initial.profile ?? 'starter',
+  selections: initial.selections ?? [],
   dependencyGraph: [],
   plan: null,
   applyStatus: 'idle',
   currentManifest: null,
 
-  setProfile: (profile) => set({ profile }),
-  toggleSelection: (id) =>
+  setProfile: (profile) => {
+    set({ profile });
+    persist(get());
+  },
+  toggleSelection: (id) => {
     set((s) => ({
       selections: s.selections.includes(id)
         ? s.selections.filter((x) => x !== id)
         : [...s.selections, id],
-    })),
-  setPlan: (plan) => set({ plan, dependencyGraph: plan.graph }),
+    }));
+    persist(get());
+  },
+  setPlan: (plan) => {
+    set({ plan, dependencyGraph: plan.graph });
+    persist(get());
+  },
   setApplyStatus: (applyStatus) => set({ applyStatus }),
   setManifest: (currentManifest) => set({ currentManifest }),
-  reset: () =>
+  reset: () => {
+    if (typeof localStorage !== 'undefined') {
+      try {
+        localStorage.removeItem(PERSIST_KEY);
+      } catch {
+        // ignore
+      }
+    }
     set({
+      profile: 'starter',
       selections: [],
       dependencyGraph: [],
       plan: null,
       applyStatus: 'idle',
-    }),
+    });
+  },
 }));
