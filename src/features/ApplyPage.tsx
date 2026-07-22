@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Steps, Typography } from 'antd';
+import { Alert, Button, Steps, Typography } from 'antd';
 import { CanaryDisplay } from '../components/CanaryDisplay';
 import { useAssemblyStore } from '../application/assembly/assemblyStore';
 import { guideApi } from '../infrastructure/guideApiClient';
@@ -13,10 +13,12 @@ export function ApplyPage() {
   const planId = plan?.id ?? 'plan-' + Date.now();
 
   async function apply() {
-    setApplyStatus('validating');
+    setApplyStatus('applying');
     try {
       const res = await guideApi.apply(planId);
-      setApplyStatus(res.status === 'APPLIED' ? 'applying' : 'ready');
+      // Backend returns APPLIED on a successful apply; reflect that as the
+      // terminal "ready" state so the user sees a real result (RC-8).
+      setApplyStatus(res.status === 'APPLIED' ? 'ready' : 'failed');
     } catch {
       setApplyStatus('failed');
     }
@@ -33,6 +35,22 @@ export function ApplyPage() {
         ]}
       />
       <CanaryDisplay applyStatus={applyStatus} />
+      {applyStatus === 'ready' && (
+        <Alert
+          type="success"
+          showIcon
+          style={{ marginTop: 16 }}
+          message="Plan applied — platform is ready."
+        />
+      )}
+      {applyStatus === 'failed' && (
+        <Alert
+          type="error"
+          showIcon
+          style={{ marginTop: 16 }}
+          message="Apply failed. Check the backend and retry."
+        />
+      )}
       <Button
         type="primary"
         style={{ marginTop: 16 }}

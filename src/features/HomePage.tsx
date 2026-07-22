@@ -13,7 +13,7 @@ export function HomePage() {
         resolves dependencies, previews the change, and upgrades with zero
         downtime.
       </Typography.Paragraph>
-      <Button type="primary" size="large" onClick={() => navigate('/wizard')}>
+      <Button type="primary" size="large" onClick={() => navigate('/wizard?profile=starter')}>
         Start with a Chat Agent
       </Button>
     </Card>

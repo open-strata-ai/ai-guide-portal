@@ -33,6 +33,8 @@ export interface DependencyNode {
 
 /** Result of a preview calculation (DESIGN §13.3, preview-calc ADR-0002). */
 export interface DeploymentPlan {
+  /** Server-assigned plan id (used by POST /plans/{id}/apply). */
+  id?: string;
   graph: DependencyNode[];
   /** New components that must be provisioned. */
   add: CapabilityId[];

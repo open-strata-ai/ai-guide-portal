@@ -19,9 +19,15 @@ export function PlanPage() {
     setLoading(true);
     guideApi
       .preview(selections, profile)
-      .then((p) => !cancelled && setPlan(p))
+      // RC-8: commit the previewed plan to the store unconditionally so the
+      // apply step always has a real plan id — even if the user navigates to
+      // /apply before this async call resolves. Only the local spinner state
+      // is guarded against post-unmount updates.
+      .then((p) => setPlan(p))
       .catch(() => undefined)
-      .finally(() => !cancelled && setLoading(false));
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
     return () => {
       cancelled = true;
     };

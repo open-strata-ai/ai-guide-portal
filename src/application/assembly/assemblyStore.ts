@@ -47,6 +47,19 @@ function persist(state: AssemblyState): void {
 
 const initial = loadPersisted();
 
+/**
+ * Default capability modules auto-selected when a profile is chosen (EU-06).
+ * Selecting a profile must load its starter set so the wizard is never empty
+ * (the reported "profile tabs don't load default modules" bug). Each profile's
+ * defaults are a sensible, dependency-consistent capability set.
+ */
+const PROFILE_DEFAULTS: Record<Profile, CapabilityId[]> = {
+  starter: ['chat', 'modelProvider'],
+  standard: ['chat', 'modelProvider', 'memory'],
+  advanced: ['chat', 'modelProvider', 'memory', 'vectorStore', 'rag', 'agent'],
+  full: ['chat', 'rag', 'modelProvider', 'memory', 'vectorStore', 'agent', 'workflow', 'sandbox'],
+};
+
 interface AssemblyState {
   profile: Profile;
   selections: CapabilityId[];
@@ -72,7 +85,9 @@ export const useAssemblyStore = create<AssemblyState>((set, get) => ({
   currentManifest: null,
 
   setProfile: (profile) => {
-    set({ profile });
+    // RC-6: selecting a profile also loads its default capability modules so the
+    // wizard reflects a real, non-empty selection for that profile.
+    set({ profile, selections: PROFILE_DEFAULTS[profile] ?? [] });
     persist(get());
   },
   toggleSelection: (id) => {
