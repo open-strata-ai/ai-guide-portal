@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Steps, Typography } from 'antd';
+import { Alert, Button, Steps, Typography } from 'antd';
 import { CanaryDisplay } from '../components/CanaryDisplay';
 import { useAssemblyStore } from '../application/assembly/assemblyStore';
 import { guideApi } from '../infrastructure/guideApiClient';
@@ -35,6 +35,22 @@ export function ApplyPage() {
         ]}
       />
       <CanaryDisplay applyStatus={applyStatus} />
+      {applyStatus === 'ready' && (
+        <Alert
+          type="success"
+          showIcon
+          style={{ marginTop: 16 }}
+          message="Plan applied — platform is ready."
+        />
+      )}
+      {applyStatus === 'failed' && (
+        <Alert
+          type="error"
+          showIcon
+          style={{ marginTop: 16 }}
+          message="Apply failed. Check the backend and retry."
+        />
+      )}
       <Button
         type="primary"
         style={{ marginTop: 16 }}
